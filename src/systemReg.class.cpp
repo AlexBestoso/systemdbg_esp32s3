@@ -16,6 +16,21 @@ uint32_t ES3SystemRegister::regRead(uint32_t reg){
         return ES3_SYSREG_READ(reg);
 }
 
+bool ES3SystemRegister::regGet(uint32_t val, int pos){
+        int grabber = 1 << pos;
+        int result = (val & grabber) >> pos;
+        return result == 1 ? true : false;
+}
+int ES3SystemRegister::regGet(uint32_t val, int x, int y){
+        int retSize = (y-x)+1;
+        int grabber = 0;
+        for(int i=0; i<retSize;i++)
+                grabber = (grabber <<1)+1;
+        int result = (val & (grabber << x)) >> x;
+        return result;
+}
+
+
 uint32_t ES3SystemRegister::regSet(uint32_t reg, bool val, int pos){
         int v = val ? 1 : 0;
         reg &= ~(1<<pos);
@@ -32,6 +47,33 @@ uint32_t ES3SystemRegister::regSet(uint32_t reg, int val, int x, int y){
         reg &= ~(1<<x);
         reg += (val << x);
         return reg;
+}
+
+void ES3SystemRegister::getAll(void){
+	this->getSystem_core_1_control_0();
+	this->getSystem_core_1_control_1();
+	this->getSystem_cpu_per_conf();
+	this->getSystem_perip_clk_en0();
+	this->getSystem_perip_clk_en1();
+	this->getSystem_perip_rst_en0();
+	this->getSystem_perip_rst_en1();
+	this->getSystem_bt_lpck_div_frac();
+	this->getSystem_cpu_intr_from_cpu_0();
+	this->getSystem_cpu_intr_from_cpu_1();
+	this->getSystem_cpu_intr_from_cpu_2();
+	this->getSystem_cpu_intr_from_cpu_3();
+	this->getSystem_rsa_pd_ctrl();
+	this->getSystem_edma_ctrl();
+	this->getSystem_cache_control();
+	this->getSystem_external_device_encrypt_decrypt_control();
+	this->getSystem_rtc_fastmem_config();
+	this->getSystem_rtc_fastmem_crc();
+	this->getSystem_clock_gate();
+	this->getSystem_sysclk_conf();
+	this->getSystem_date();
+	this->getApb_ctrl_clkgate_force_on();
+	this->getApb_ctrl_mem_power_down();
+	this->getApb_ctrl_mem_power_up();
 }
 
 uint32_t ES3SystemRegister::getSystem_core_1_control_0(void){

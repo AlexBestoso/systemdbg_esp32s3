@@ -42,12 +42,7 @@ class ES3SystemRegister{
 		struct apb_ctrl_mem_power_down_reg apb_ctrl_mem_power_down;
 		struct apb_ctrl_mem_power_up_reg apb_ctrl_mem_power_up;
 
-		/*
-		 * Useful Functions
-		 * */
-		void getAll(void);
-
-		/*
+				/*
 		 * Getters 
 		 * */
 		uint32_t getSystem_core_1_control_0(void);
@@ -102,6 +97,12 @@ class ES3SystemRegister{
 		void setApb_ctrl_clkgate_force_on(void);
 		void setApb_ctrl_mem_power_down(void);
 		void setApb_ctrl_mem_power_up(void);
+		
+		/*
+		 * Useful Functions
+		 * */
+		void getAll(void);
+
 
 	
 };
